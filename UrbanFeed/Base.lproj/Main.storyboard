@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qgg-HP-fQg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Feeds-->
@@ -15,7 +16,19 @@
                     <view key="view" contentMode="scaleToFill" id="VGK-v8-ncb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RZR-cT-slN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RZR-cT-slN" firstAttribute="leading" secondItem="VGK-v8-ncb" secondAttribute="leadingMargin" constant="-16" id="6d5-Vg-mXt"/>
+                            <constraint firstItem="GsH-NF-Qoq" firstAttribute="top" secondItem="RZR-cT-slN" secondAttribute="bottom" constant="-49" id="ff0-hg-8tZ"/>
+                            <constraint firstItem="RZR-cT-slN" firstAttribute="top" secondItem="5En-td-CUM" secondAttribute="bottom" constant="-20" id="hme-WM-ydk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RZR-cT-slN" secondAttribute="trailing" constant="-16" id="oC0-Jf-f3Q"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Feeds" id="uMP-dI-ZvK"/>
                 </viewController>
@@ -34,7 +47,19 @@
                     <view key="view" contentMode="scaleToFill" id="BnS-cE-Bga">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="11Y-33-tLV">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="11Y-33-tLV" secondAttribute="trailing" constant="-16" id="EGg-Ny-Ou8"/>
+                            <constraint firstItem="am2-Uy-Jvh" firstAttribute="top" secondItem="11Y-33-tLV" secondAttribute="bottom" constant="-49" id="hk5-pk-mb2"/>
+                            <constraint firstItem="11Y-33-tLV" firstAttribute="leading" secondItem="BnS-cE-Bga" secondAttribute="leadingMargin" constant="-16" id="uxX-vl-G3p"/>
+                            <constraint firstItem="11Y-33-tLV" firstAttribute="top" secondItem="Nvj-ly-C41" secondAttribute="bottom" constant="-20" id="x4R-TO-hJf"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="Znj-rG-BAn"/>
                 </viewController>
