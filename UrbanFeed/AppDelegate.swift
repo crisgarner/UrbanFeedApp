@@ -15,8 +15,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        
+        // Register for Push Notitications, if running iOS 8
+        Parse.setApplicationId("mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW", clientKey: "LoKFBy77s096yqhzemww64qtVyzrk1obtEAkHRHK")
+        var notificationType: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
+        
+        var settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationType, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
         // Override point for customization after application launch.
         return true
+    }
+    
+    //Push notifications
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings!) {
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+    }
+    
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println(error.localizedDescription)
+        println("could not register: \(error)")
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData){
+        let currentInstallation: PFInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.saveInBackground()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        PFPush.handlePush(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication) {

@@ -8,7 +8,7 @@
         <!--Feeds-->
         <scene sceneID="xED-1J-Ihx">
             <objects>
-                <viewController id="qDC-u0-QSb" sceneMemberID="viewController">
+                <viewController id="qDC-u0-QSb" customClass="FeedsViewController" customModule="UrbanFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5En-td-CUM"/>
                         <viewControllerLayoutGuide type="bottom" id="GsH-NF-Qoq"/>
@@ -18,19 +18,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RZR-cT-slN">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="30" width="600" height="570"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" id="So6-Qu-AYc">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="So6-Qu-AYc" id="cDt-CC-NrM">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qDC-u0-QSb" id="yFO-y3-sKP"/>
+                                    <outlet property="delegate" destination="qDC-u0-QSb" id="BUq-Wb-bbd"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RZR-cT-slN" firstAttribute="leading" secondItem="VGK-v8-ncb" secondAttribute="leadingMargin" constant="-16" id="6d5-Vg-mXt"/>
+                            <constraint firstItem="RZR-cT-slN" firstAttribute="top" secondItem="5En-td-CUM" secondAttribute="bottom" constant="10" id="N7V-j7-sVO"/>
                             <constraint firstItem="GsH-NF-Qoq" firstAttribute="top" secondItem="RZR-cT-slN" secondAttribute="bottom" constant="-49" id="ff0-hg-8tZ"/>
                             <constraint firstItem="RZR-cT-slN" firstAttribute="top" secondItem="5En-td-CUM" secondAttribute="bottom" constant="-20" id="hme-WM-ydk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RZR-cT-slN" secondAttribute="trailing" constant="-16" id="oC0-Jf-f3Q"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="hme-WM-ydk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Feeds" id="uMP-dI-ZvK"/>
+                    <connections>
+                        <outlet property="feedsTableView" destination="RZR-cT-slN" id="Ga0-Mp-4VE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U1j-eT-azT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
