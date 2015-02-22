@@ -29,16 +29,9 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
-        api!.getFeeds()
         var installation:PFInstallation = PFInstallation.currentInstallation()
-        if (installation.channels != nil)
-        {
-            println("xD")
-            println(installation)
-            userFeeds = installation.channels as Array<String>
-        }
-        println("xD")
-        println(installation)
+        api!.getUserFeeds(installation.objectId)
+        api!.getFeeds()
         self.feedsTableView!.reloadData()
     }
 
@@ -55,7 +48,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as FeedTableViewCell
         cell.delegate = self
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        if(contains(self.userFeeds, String(rowData["name"] as String))){
+        if(contains(self.userFeeds, String(rowData["short_id"] as String))){
             // println(rowData["feed_id"])
             cell.loadItem(feedName: rowData["name"] as String)
         }else{
@@ -75,19 +68,28 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
             alert.addButtonWithTitle("Ok")
             alert.show()
         }else{
-            dispatch_async(dispatch_get_main_queue(), {
-                self.feedsData = NSMutableArray(array:resultsArr)
-                self.feedsTableView!.reloadData()
-            })
+            if methodCaller == "getUserFeed" {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.userFeeds = resultsArr as Array<String>
+                    self.feedsTableView!.reloadData()
+                })
+            }else{
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.feedsData = NSMutableArray(array:resultsArr)
+                    self.feedsTableView!.reloadData()
+                })
+            }
         }
+        
     }
     
     func addFeed(indexPath:AnyObject){
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-      //  api!.addFeed(String(rowData["name"]), userId: self.userId)
+        
         var channel = (rowData["name"] as String)
         channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
         var installation:PFInstallation = PFInstallation.currentInstallation()
+        api!.addFeed(installation.objectId, shortId: rowData["short_id"] as String)
         if (installation.channels == nil)
         {
             installation.channels = NSArray()
