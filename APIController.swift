@@ -53,9 +53,11 @@ class APIController
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
                 let responseDictionary = responseObject as [String: AnyObject]
                 println(responseDictionary)
-                let feedArray = responseDictionary["channels"] as NSArray
-                
-                self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getUserFeed")
+                if let feedArray: NSArray = responseDictionary["channels"] as? NSArray{
+                      self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getUserFeed")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: "",methodCaller: "getUserFeed")
+                }
             },
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
@@ -75,15 +77,35 @@ class APIController
         manager.POST( serverURL+"subscribers/add_channel",
             parameters: parameters,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                self.delegate.didReceiveAPIResults([],message: "Feed Added!",methodCaller: "getFeeds")
+                self.delegate.didReceiveAPIResults([],message: "Feed Added!",methodCaller: "addFeed")
             },
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
                     let response =  responseObject as [String: AnyObject]
-                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "getFeeds")
+                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "addFeed")
                 }else{
-                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getFeeds")
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "addFeed")
+                }
+        })
+    }
+    
+    func deleteFeed(objectId :String, shortId :String ){
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFHTTPRequestSerializer()
+        var parameters = ["channelid":shortId,"objectId":objectId]
+        manager.POST( serverURL+"subscribers/remove_channel",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                self.delegate.didReceiveAPIResults([],message: "Feed Deleted!",methodCaller: "deleteFeed")
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                let responseObject: AnyObject! =  operation.responseObject
+                if responseObject != nil {
+                    let response =  responseObject as [String: AnyObject]
+                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "deleteFeed")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "deleteFeed")
                 }
         })
     }

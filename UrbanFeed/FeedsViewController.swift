@@ -59,6 +59,47 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
+    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        /*var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+        api?.deleteFeed(rowData["id"]!.stringValue)
+        feedsData.removeObjectAtIndex(indexPath.row)
+        self.feedsTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+        Flurry.logEvent("Business_Feed_Deleted")
+        }*/
+    }
+    
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+
+        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+            tableView.editing = false
+            var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+            var installation:PFInstallation = PFInstallation.currentInstallation()
+            self.api!.deleteFeed(installation.objectId, shortId: rowData["short_id"] as String)
+            if (installation.channels == nil)
+            {
+                installation.channels = NSArray()
+            }
+            var channel = (rowData["name"] as String)
+            channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
+            installation.removeObject(channel, forKey: "channels")
+            installation.saveInBackground()
+
+      //      self.feedsData.removeObjectAtIndex(indexPath.row)
+        //    self.feedsTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+        
+        // return [deleteAction, shareAction] No feed share for this version
+        return [deleteAction]
+    }
+    
+    
+
+    
     func didReceiveAPIResults(results: NSArray, message: String, methodCaller: String) {
         var resultsArr: NSArray = results
         if message != "" {
@@ -82,6 +123,9 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
+    
+    
+    
     
     func addFeed(indexPath:AnyObject){
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
