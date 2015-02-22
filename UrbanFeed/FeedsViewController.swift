@@ -15,6 +15,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     let kCellIdentifier: String = "FeedCell"
     var userFeeds = Array<String>()
     var api : APIController?
+    var imageCache = [String : UIImage]()
     
     @IBOutlet var feedsTableView: UITableView!
     
@@ -50,12 +51,48 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         if(contains(self.userFeeds, String(rowData["short_id"] as String))){
             // println(rowData["feed_id"])
-            cell.loadItem(feedName: rowData["name"] as String)
+            cell.loadItem(feedName: rowData["name"] as String, image: UIImage(named: "Blank52")!)
         }else{
-            cell.loadItem(feedName: rowData["name"] as String,indexPath:indexPath)
+            cell.loadItem(feedName: rowData["name"] as String, image: UIImage(named: "Blank52")!,indexPath:indexPath)
         }
         
+        let urlString = (rowData["logo_url"] as String)
+        var image = self.imageCache[urlString]
         
+        
+        if( image == nil ) {
+            // If the image does not exist, we need to download it
+            var imgURL: NSURL = NSURL(string: urlString)!
+            
+            // Download an NSData representation of the image at the URL
+            let request: NSURLRequest = NSURLRequest(URL: imgURL)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+                if error == nil {
+                    image = UIImage(data: data)
+                    
+                    // Store the image in to our cache
+                    self.imageCache[urlString] = image
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as? FeedTableViewCell {
+                            //cellToUpdate.imageView?.image = image
+                            //  cellToUpdate.productImage.image = nil
+                            cellToUpdate.logo.image = image
+                            //   tableView.reloadData()
+                        }
+                    })
+                }
+                else {
+                    println("Error: \(error.localizedDescription)")
+                }
+            })
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as? FeedTableViewCell {
+                    cellToUpdate.logo.image = image
+                }
+            })
+        }
         return cell
     }
     

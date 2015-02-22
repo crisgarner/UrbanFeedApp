@@ -19,6 +19,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet var feedName: UILabel!
     @IBOutlet var addFeedButton: UIButton!
 
+    @IBOutlet var logo: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,8 +32,10 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     
-    func loadItem(#feedName: String, indexPath: AnyObject = NSNull()) {
+    func loadItem(#feedName: String,image: UIImage, indexPath: AnyObject = NSNull()) {
         self.feedName.text = feedName
+        self.logo.image = image
+        self.logo.reloadInputViews()
         if(indexPath as NSObject == NSNull()){
             addFeedButton.enabled = false
             addFeedButton.alpha = 0

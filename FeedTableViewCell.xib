@@ -14,14 +14,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5w-hd-2rY">
-                        <rect key="frame" x="17" y="18" width="89" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fd5-3B-Doo">
-                        <rect key="frame" x="231" y="14" width="67" height="30"/>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fd5-3B-Doo">
+                        <rect key="frame" x="231" y="15" width="67" height="30"/>
                         <state key="normal" title="Add Feed">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -29,19 +23,41 @@
                             <action selector="add:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cjb-4q-1Ag"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lbx-hH-FUu">
+                        <rect key="frame" x="8" y="5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="FxJ-XY-MDa"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5w-hd-2rY">
+                        <rect key="frame" x="66" y="19" width="89" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="d5w-hd-2rY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="9" id="1Zu-3U-Ngv"/>
+                    <constraint firstItem="d5w-hd-2rY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="58" id="1Zu-3U-Ngv"/>
+                    <constraint firstItem="d5w-hd-2rY" firstAttribute="leading" secondItem="lbx-hH-FUu" secondAttribute="trailing" constant="8" id="4dP-KR-Gfc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Fd5-3B-Doo" secondAttribute="trailing" constant="14" id="CUZ-mc-aJv"/>
                     <constraint firstAttribute="centerY" secondItem="Fd5-3B-Doo" secondAttribute="centerY" id="HD0-gu-kFo"/>
-                    <constraint firstAttribute="centerY" secondItem="d5w-hd-2rY" secondAttribute="centerY" constant="0.5" id="XzS-uA-8Lc"/>
+                    <constraint firstAttribute="centerY" secondItem="d5w-hd-2rY" secondAttribute="centerY" id="XzS-uA-8Lc"/>
+                    <constraint firstItem="lbx-hH-FUu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="i97-sT-cuT"/>
+                    <constraint firstItem="lbx-hH-FUu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="jTl-9l-E7y"/>
+                    <constraint firstAttribute="centerY" secondItem="lbx-hH-FUu" secondAttribute="centerY" constant="-1" id="yPo-BE-rzN"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="1Zu-3U-Ngv"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addFeedButton" destination="Fd5-3B-Doo" id="fkh-U2-4JY"/>
                 <outlet property="feedName" destination="d5w-hd-2rY" id="1rC-tE-JM8"/>
+                <outlet property="logo" destination="lbx-hH-FUu" id="as2-2n-lPW"/>
             </connections>
-            <point key="canvasLocation" x="305" y="359.5"/>
+            <point key="canvasLocation" x="305" y="357.5"/>
         </tableViewCell>
     </objects>
 </document>
