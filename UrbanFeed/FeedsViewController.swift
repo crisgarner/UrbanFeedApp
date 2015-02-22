@@ -20,6 +20,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet var feedsTableView: UITableView!
     
     override func viewDidLoad() {
+        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
         super.viewDidLoad()
         var nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         feedsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
@@ -145,6 +146,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
             alert.message = message
             alert.addButtonWithTitle("Ok")
             alert.show()
+            self.feedsTableView!.reloadData()
         }else{
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -158,7 +160,6 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 })
             }
         }
-        
     }
     
     

@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Feeds-->
+        <!--Channels-->
         <scene sceneID="xED-1J-Ihx">
             <objects>
                 <viewController id="qDC-u0-QSb" customClass="FeedsViewController" customModule="UrbanFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,7 +49,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feeds" id="uMP-dI-ZvK"/>
+                    <tabBarItem key="tabBarItem" title="Channels" image="label_icon" id="uMP-dI-ZvK"/>
                     <connections>
                         <outlet property="feedsTableView" destination="RZR-cT-slN" id="Ga0-Mp-4VE"/>
                     </connections>
@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="1193" y="-101"/>
         </scene>
-        <!--Home-->
+        <!--Notifications-->
         <scene sceneID="u1k-gO-dHc">
             <objects>
-                <viewController id="vK6-r9-iob" sceneMemberID="viewController">
+                <viewController id="vK6-r9-iob" customClass="NotificationsViewController" customModule="UrbanFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nvj-ly-C41"/>
                         <viewControllerLayoutGuide type="bottom" id="am2-Uy-Jvh"/>
@@ -71,8 +71,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="11Y-33-tLV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="30" width="600" height="570"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationCell" id="Vhu-Nk-L3a">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vhu-Nk-L3a" id="cpn-5O-DQa">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vK6-r9-iob" id="QfP-G9-iVj"/>
+                                    <outlet property="delegate" destination="vK6-r9-iob" id="I5h-Cy-TvZ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,10 +93,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="11Y-33-tLV" secondAttribute="trailing" constant="-16" id="EGg-Ny-Ou8"/>
                             <constraint firstItem="am2-Uy-Jvh" firstAttribute="top" secondItem="11Y-33-tLV" secondAttribute="bottom" constant="-49" id="hk5-pk-mb2"/>
                             <constraint firstItem="11Y-33-tLV" firstAttribute="leading" secondItem="BnS-cE-Bga" secondAttribute="leadingMargin" constant="-16" id="uxX-vl-G3p"/>
-                            <constraint firstItem="11Y-33-tLV" firstAttribute="top" secondItem="Nvj-ly-C41" secondAttribute="bottom" constant="-20" id="x4R-TO-hJf"/>
+                            <constraint firstItem="11Y-33-tLV" firstAttribute="top" secondItem="Nvj-ly-C41" secondAttribute="bottom" constant="10" id="x4R-TO-hJf"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="Znj-rG-BAn"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="chat_icon" id="Znj-rG-BAn"/>
+                    <connections>
+                        <outlet property="notificationsTableView" destination="11Y-33-tLV" id="PE7-Sf-sro"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1v-Jh-Q1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -98,6 +114,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.92941176470588238" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="vK6-r9-iob" kind="relationship" relationship="viewControllers" id="yyV-mT-uOb"/>
@@ -109,4 +126,8 @@
             <point key="canvasLocation" x="376" y="-433"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chat_icon" width="25" height="25"/>
+        <image name="label_icon" width="25" height="25"/>
+    </resources>
 </document>
