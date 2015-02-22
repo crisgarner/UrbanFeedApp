@@ -31,8 +31,11 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     override func viewWillAppear(animated: Bool) {
-        var installation:PFInstallation = PFInstallation.currentInstallation()
-        api!.getUserFeeds(installation.objectId)
+       // var installation:PFInstallation = PFInstallation.currentInstallation()
+        if let installation:PFInstallation = PFInstallation.currentInstallation(){
+            api!.getUserFeeds(installation.objectId)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +72,13 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
         
         var shareAction = UITableViewRowAction(style: .Default, title: "Share") { (action, indexPath) -> Void in
-    
+            var rowData: NSDictionary = self.notificationsData[indexPath.row] as NSDictionary
+            var caption = (rowData["channel_name"] as String) + ": " + (rowData["content"] as String)
+            let objectsToShare = [caption]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = ([UIActivityTypePrint, UIActivityTypeAssignToContact,UIActivityTypeAirDrop,UIActivityTypePostToVimeo])
+            
+            self.presentViewController(activityVC, animated: true, completion: nil)
         }
         shareAction.backgroundColor = UIColor.grayColor()
         // return [deleteAction, shareAction] No feed share for this version

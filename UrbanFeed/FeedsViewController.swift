@@ -113,7 +113,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
 
-        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+        var deleteAction = UITableViewRowAction(style: .Default, title: "Unfollow") { (action, indexPath) -> Void in
             tableView.editing = false
             var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
             var installation:PFInstallation = PFInstallation.currentInstallation()
