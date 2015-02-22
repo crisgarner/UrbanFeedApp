@@ -11,5 +11,6 @@
 
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
+#import "AFNetworking.h"
 
 #endif

@@ -53,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		632BBCD31A99B5BB000D227E /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = SOURCE_ROOT; };
 		6376E9831A991947007B9D31 /* UrbanFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UrbanFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6376E9871A991947007B9D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6376E9881A991947007B9D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		6376E9C81A9937EF007B9D31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6376E9CA1A9937FB007B9D31 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6376E9CC1A993807007B9D31 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		6376E9CE1A993843007B9D31 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		6376E9D01A998CF8007B9D31 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIController.swift; path = ../APIController.swift; sourceTree = "<group>"; };
 		6376E9D31A998DA0007B9D31 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		6376E9D41A998DA0007B9D31 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
@@ -156,9 +156,9 @@
 		6376E9851A991947007B9D31 /* UrbanFeed */ = {
 			isa = PBXGroup;
 			children = (
+				632BBCD31A99B5BB000D227E /* BridgeHeader.h */,
 				6376E9D01A998CF8007B9D31 /* APIController.swift */,
 				6376E9CF1A995047007B9D31 /* Frameworks */,
-				6376E9CE1A993843007B9D31 /* BridgeHeader.h */,
 				6376E9AD1A992A65007B9D31 /* FeedTableViewCell.swift */,
 				6376E9AE1A992A65007B9D31 /* FeedTableViewCell.xib */,
 				6376E9881A991947007B9D31 /* AppDelegate.swift */,
@@ -495,7 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.UrbanFeed";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cristian Garner (ZVYG6M228L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UrbanFeed/ParseFramework",
@@ -512,7 +512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.UrbanFeed";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cristian Garner (ZVYG6M228L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UrbanFeed/ParseFramework",
