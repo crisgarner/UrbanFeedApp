@@ -137,5 +137,25 @@ class APIController
     }
     
     
+    func addUser(objectId :String){
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer() as AFJSONRequestSerializer
+        var parameters = ["object_id":objectId]
+        manager.POST(serverURL+"subscribers/insert",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                self.delegate.didReceiveAPIResults([],message: "success",methodCaller: "addUser")
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                let responseObject: AnyObject! =  operation.responseObject
+                if responseObject != nil {
+                    let response =  responseObject as [String: AnyObject]
+                    self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "addUser")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "addUser")
+                }
+        })
+    }
+    
     
 }

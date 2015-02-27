@@ -39,10 +39,18 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(animated: Bool) {
        // var installation:PFInstallation = PFInstallation.currentInstallation()
+       
         let defaults = NSUserDefaults.standardUserDefaults()
-        if let identifier = defaults.stringForKey("UserIdentifier"){
-            api!.getUserFeeds(identifier)
+        if let userCreated = defaults.stringForKey("UserCreated"){
+            if let identifier = defaults.stringForKey("UserIdentifier"){
+                api!.getUserFeeds(identifier)
+            }
+        }else{
+            if let identifier = defaults.stringForKey("UserIdentifier"){
+                 api!.addUser(identifier)
+            }
         }
+        
         
     }
 
@@ -96,34 +104,42 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     
     func didReceiveAPIResults(results: NSArray, message: String, methodCaller: String) {
         var resultsArr: NSArray = results
-        if message != "" {
-            var alert: UIAlertView = UIAlertView()
-            alert.title = "Notification"
-            alert.message = message
-            alert.addButtonWithTitle("Ok")
-          //  alert.show()
+        
+        if methodCaller == "addUser" {
+            if message == "success"{
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject("true", forKey: "UserCreated")
+            }
         }else{
-            if methodCaller == "getUserFeed" {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.userFeeds = resultsArr as Array<String>
-                    var first = true
-                    for feed in self.userFeeds{
-                        if first{
-                            first = false
-                            self.channels += feed
-                        }else{
-                            self.channels += "," + feed
-                        }
-                        
-                        
-                    }
-                    self.api!.getNotifications(self.channels)
-                })
+            if message != "" {
+                var alert: UIAlertView = UIAlertView()
+                alert.title = "Notification"
+                alert.message = message
+                alert.addButtonWithTitle("Ok")
+                //  alert.show()
             }else{
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.notificationsData = NSMutableArray(array:resultsArr)
-                    self.notificationsTableView!.reloadData()
-                })
+                if methodCaller == "getUserFeed" {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.userFeeds = resultsArr as Array<String>
+                        var first = true
+                        for feed in self.userFeeds{
+                            if first{
+                                first = false
+                                self.channels += feed
+                            }else{
+                                self.channels += "," + feed
+                            }
+                            
+                            
+                        }
+                        self.api!.getNotifications(self.channels)
+                    })
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.notificationsData = NSMutableArray(array:resultsArr)
+                        self.notificationsTableView!.reloadData()
+                    })
+                }
             }
         }
     }
