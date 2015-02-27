@@ -70,8 +70,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FU0-Z0-xJL">
-                                <rect key="frame" x="0.0" y="30" width="600" height="570"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FU0-Z0-xJL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFeedCell" id="0xQ-GQ-uWL">
@@ -92,8 +92,8 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="FU0-Z0-xJL" secondAttribute="trailing" constant="-16" id="Bkz-Ut-gsK"/>
                             <constraint firstItem="FU0-Z0-xJL" firstAttribute="leading" secondItem="H6P-ta-h6U" secondAttribute="leadingMargin" constant="-16" id="Gnh-iZ-rGa"/>
-                            <constraint firstItem="ta5-Al-K9n" firstAttribute="top" secondItem="FU0-Z0-xJL" secondAttribute="bottom" constant="-49" id="HU1-B3-6Ve"/>
-                            <constraint firstItem="FU0-Z0-xJL" firstAttribute="top" secondItem="Y9f-Mp-meg" secondAttribute="bottom" constant="10" id="Pb7-eJ-3Fo"/>
+                            <constraint firstItem="ta5-Al-K9n" firstAttribute="top" secondItem="FU0-Z0-xJL" secondAttribute="bottom" id="HU1-B3-6Ve"/>
+                            <constraint firstItem="FU0-Z0-xJL" firstAttribute="top" secondItem="Y9f-Mp-meg" secondAttribute="bottom" constant="-64" id="Pb7-eJ-3Fo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="User Channels" id="1bj-is-TUv"/>
@@ -144,7 +144,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GQ2-v6-8Aa">
-                        <barButtonItem key="rightBarButtonItem" title="Change City" id="R9P-Q5-kl5"/>
+                        <barButtonItem key="rightBarButtonItem" title="Change City" id="R9P-Q5-kl5">
+                            <connections>
+                                <segue destination="04W-9A-s07" kind="show" id="m6j-6W-jNA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="locationButton" destination="R9P-Q5-kl5" id="5tF-Mu-fjY"/>
@@ -154,6 +158,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1v-Jh-Q1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2006" y="-764"/>
+        </scene>
+        <!--Location View Controller-->
+        <scene sceneID="enW-iX-sK6">
+            <objects>
+                <viewController id="04W-9A-s07" customClass="LocationViewController" customModule="UrbanFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lJI-W5-7dn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Erj-Fl-yhk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vFb-ML-vqY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oN5-2S-xC4">
+                                <rect key="frame" x="243" y="285" width="114" height="30"/>
+                                <state key="normal" title="Update Location">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getLocation:" destination="04W-9A-s07" eventType="touchUpInside" id="N3h-op-YEy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-Sv-XeQ">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="hfS-Sv-XeQ" secondAttribute="centerX" id="ANL-m3-eWC"/>
+                            <constraint firstAttribute="centerX" secondItem="oN5-2S-xC4" secondAttribute="centerX" id="LRc-hW-bRt"/>
+                            <constraint firstAttribute="centerY" secondItem="oN5-2S-xC4" secondAttribute="centerY" id="YZ7-B5-Vol"/>
+                            <constraint firstItem="oN5-2S-xC4" firstAttribute="top" secondItem="hfS-Sv-XeQ" secondAttribute="bottom" constant="8" id="wNi-8x-Egg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cityLabel" destination="hfS-Sv-XeQ" id="58p-eV-Pae"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zH0-w2-1Wk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2703" y="-764"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Tzc-wn-VeO">

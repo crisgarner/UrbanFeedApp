@@ -101,7 +101,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             alert.title = "Notification"
             alert.message = message
             alert.addButtonWithTitle("Ok")
-            alert.show()
+          //  alert.show()
         }else{
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
