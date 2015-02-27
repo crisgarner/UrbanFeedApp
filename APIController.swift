@@ -63,7 +63,7 @@ class APIController
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
                     let response =  responseObject as [String: AnyObject]
-                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "getUserFeed")
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getUserFeed")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getUserFeed")
                 }

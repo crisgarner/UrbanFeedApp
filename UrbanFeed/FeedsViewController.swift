@@ -31,8 +31,10 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
-        var installation:PFInstallation = PFInstallation.currentInstallation()
-        api!.getUserFeeds(installation.objectId)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let identifier = defaults.stringForKey("UserIdentifier"){
+            api!.getUserFeeds(identifier)
+        }
         api!.getFeeds()
         self.feedsTableView!.reloadData()
     }

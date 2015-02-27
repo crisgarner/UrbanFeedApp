@@ -18,6 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Register for Push Notitications, if running iOS 8
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let identifier = defaults.stringForKey("UserIdentifier"){
+            //Do nothing
+        }else{
+            defaults.setObject(UIDevice.currentDevice().identifierForVendor.UUIDString, forKey: "UserIdentifier")
+        }
+        
         Parse.setApplicationId("mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW", clientKey: "LoKFBy77s096yqhzemww64qtVyzrk1obtEAkHRHK")
         var notificationType: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
         
@@ -46,6 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData){
         let currentInstallation: PFInstallation = PFInstallation.currentInstallation()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let identifier = defaults.stringForKey("UserIdentifier"){
+            currentInstallation["userIdentifier"] = identifier
+
+        }
         currentInstallation.setDeviceTokenFromData(deviceToken)
         currentInstallation.saveInBackground()
     }

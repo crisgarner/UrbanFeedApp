@@ -32,8 +32,9 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(animated: Bool) {
        // var installation:PFInstallation = PFInstallation.currentInstallation()
-        if let installation:PFInstallation = PFInstallation.currentInstallation(){
-            api!.getUserFeeds(installation.objectId)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let identifier = defaults.stringForKey("UserIdentifier"){
+            api!.getUserFeeds(identifier)
         }
         
     }
