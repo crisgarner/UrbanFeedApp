@@ -17,9 +17,16 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     var imageCache = [String : UIImage]()
     var channels = ""
     
+    @IBOutlet var locationButton: UIBarButtonItem!
     @IBOutlet var notificationsTableView: UITableView!
 
     override func viewDidLoad() {
+        locationButton.tintColor = UIColor.whiteColor()
+        var attributes = [
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
         self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
         self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()

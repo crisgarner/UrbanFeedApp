@@ -1,18 +1,17 @@
 //
-//  FeedsViewController.swift
+//  UserFeedsViewController.swift
 //  UrbanFeed
 //
-//  Created by Cristian Garner on 2/21/15.
+//  Created by Cristian Garner on 2/26/15.
 //  Copyright (c) 2015 Cristian Garner. All rights reserved.
 //
 
 import UIKit
 
-class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FeedTableProtocol, APIControllerProtocol {
+class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, APIControllerProtocol  {
 
-   // var feedsData: NSMutableArray = []
     var feedsData: NSMutableArray = []
-    let kCellIdentifier: String = "FeedCell"
+    let kCellIdentifier: String = "UserFeedCell"
     var userFeeds = Array<String>()
     var api : APIController?
     var imageCache = [String : UIImage]()
@@ -29,20 +28,25 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         feedsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
         api = APIController(delegate: self)
-
-
+        
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
-        api!.getFeeds()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let identifier = defaults.stringForKey("UserIdentifier"){
+            api!.getUserFeeds(identifier)
+        }
         self.feedsTableView!.reloadData()
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedsData.count
@@ -50,11 +54,8 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as FeedTableViewCell
-        cell.delegate = self
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         cell.loadItem(feedName: rowData["name"] as String, image: UIImage(named: "Blank52")!)
-
-        
         let urlString = (rowData["logo_url"] as String)
         var image = self.imageCache[urlString]
         
@@ -109,8 +110,32 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }*/
     }
     
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+        
+        var deleteAction = UITableViewRowAction(style: .Default, title: "Unfollow") { (action, indexPath) -> Void in
+            tableView.editing = false
+            var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+            var installation:PFInstallation = PFInstallation.currentInstallation()
+            self.api!.deleteFeed(installation.objectId, shortId: rowData["short_id"] as String)
+            if (installation.channels == nil)
+            {
+                installation.channels = NSArray()
+            }
+            var channel = (rowData["name"] as String)
+            channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
+            installation.removeObject(channel, forKey: "channels")
+            installation.saveInBackground()
+            
+            //      self.feedsData.removeObjectAtIndex(indexPath.row)
+            //    self.feedsTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+        
+        // return [deleteAction, shareAction] No feed share for this version
+        return [deleteAction]
+    }
     
-
+    
+    
     
     func didReceiveAPIResults(results: NSArray, message: String, methodCaller: String) {
         var resultsArr: NSArray = results
@@ -135,25 +160,8 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
+
     
-    
-    
-    
-    func addFeed(indexPath:AnyObject){
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        
-        var channel = (rowData["name"] as String)
-        channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
-        var installation:PFInstallation = PFInstallation.currentInstallation()
-        api!.addFeed(installation.objectId, shortId: rowData["short_id"] as String)
-        if (installation.channels == nil)
-        {
-            installation.channels = NSArray()
-        }
-        installation.addUniqueObject(channel, forKey: "channels")
-        installation.saveEventually()
-        api!.getFeeds()
-    }
 
     /*
     // MARK: - Navigation

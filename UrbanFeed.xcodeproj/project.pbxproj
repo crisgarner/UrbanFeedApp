@@ -13,7 +13,6 @@
 		6376E9891A991947007B9D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6376E9881A991947007B9D31 /* AppDelegate.swift */; };
 		6376E98B1A991947007B9D31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6376E98A1A991947007B9D31 /* ViewController.swift */; };
 		6376E98E1A991947007B9D31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6376E98C1A991947007B9D31 /* Main.storyboard */; };
-		6376E9901A991947007B9D31 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6376E98F1A991947007B9D31 /* Images.xcassets */; };
 		6376E9931A991947007B9D31 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6376E9911A991947007B9D31 /* LaunchScreen.xib */; };
 		6376E99F1A991947007B9D31 /* UrbanFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6376E99E1A991947007B9D31 /* UrbanFeedTests.swift */; };
 		6376E9AA1A991E78007B9D31 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6376E9A91A991E78007B9D31 /* FeedsViewController.swift */; };
@@ -43,6 +42,8 @@
 		6376E9EC1A998DA0007B9D31 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6376E9E11A998DA0007B9D31 /* AFURLRequestSerialization.m */; };
 		6376E9ED1A998DA0007B9D31 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6376E9E31A998DA0007B9D31 /* AFURLResponseSerialization.m */; };
 		6376E9EE1A998DA0007B9D31 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6376E9E51A998DA0007B9D31 /* AFURLSessionManager.m */; };
+		63AAF3D31AA004ED00DDD6FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AAF3D21AA004ED00DDD6FC /* Images.xcassets */; };
+		63AAF3D51AA0057100DDD6FC /* UserFeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF3D41AA0057100DDD6FC /* UserFeedsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,6 @@
 		6376E9881A991947007B9D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6376E98A1A991947007B9D31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6376E98D1A991947007B9D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6376E98F1A991947007B9D31 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6376E9921A991947007B9D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6376E9981A991947007B9D31 /* UrbanFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UrbanFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6376E99D1A991947007B9D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		6376E9E31A998DA0007B9D31 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		6376E9E41A998DA0007B9D31 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		6376E9E51A998DA0007B9D31 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		63AAF3D21AA004ED00DDD6FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UrbanFeed/Images.xcassets; sourceTree = "<group>"; };
+		63AAF3D41AA0057100DDD6FC /* UserFeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				6376E9851A991947007B9D31 /* UrbanFeed */,
 				6376E99B1A991947007B9D31 /* UrbanFeedTests */,
 				6376E9841A991947007B9D31 /* Products */,
+				63AAF3D21AA004ED00DDD6FC /* Images.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,13 +173,13 @@
 				6376E9881A991947007B9D31 /* AppDelegate.swift */,
 				6376E98A1A991947007B9D31 /* ViewController.swift */,
 				6376E98C1A991947007B9D31 /* Main.storyboard */,
-				6376E98F1A991947007B9D31 /* Images.xcassets */,
 				6376E9911A991947007B9D31 /* LaunchScreen.xib */,
 				6376E9861A991947007B9D31 /* Supporting Files */,
 				6376E9A91A991E78007B9D31 /* FeedsViewController.swift */,
 				632BBCD41A9A41F7000D227E /* NotificationsViewController.swift */,
 				632BBCD61A9A4B04000D227E /* NotificationTableViewCell.swift */,
 				632BBCD71A9A4B04000D227E /* NotificationTableViewCell.xib */,
+				63AAF3D41AA0057100DDD6FC /* UserFeedsViewController.swift */,
 			);
 			path = UrbanFeed;
 			sourceTree = "<group>";
@@ -347,10 +350,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				632BBCD91A9A4B04000D227E /* NotificationTableViewCell.xib in Resources */,
+				63AAF3D31AA004ED00DDD6FC /* Images.xcassets in Resources */,
 				6376E98E1A991947007B9D31 /* Main.storyboard in Resources */,
 				6376E9B01A992A65007B9D31 /* FeedTableViewCell.xib in Resources */,
 				6376E9931A991947007B9D31 /* LaunchScreen.xib in Resources */,
-				6376E9901A991947007B9D31 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +376,7 @@
 				6376E9E61A998DA0007B9D31 /* AFHTTPRequestOperation.m in Sources */,
 				6376E9E91A998DA0007B9D31 /* AFNetworkReachabilityManager.m in Sources */,
 				632BBCD81A9A4B04000D227E /* NotificationTableViewCell.swift in Sources */,
+				63AAF3D51AA0057100DDD6FC /* UserFeedsViewController.swift in Sources */,
 				6376E9EE1A998DA0007B9D31 /* AFURLSessionManager.m in Sources */,
 				6376E9EC1A998DA0007B9D31 /* AFURLRequestSerialization.m in Sources */,
 				6376E9AA1A991E78007B9D31 /* FeedsViewController.swift in Sources */,
