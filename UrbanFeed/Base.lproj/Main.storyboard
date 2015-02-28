@@ -52,11 +52,66 @@
                     <navigationItem key="navigationItem" title="Channels" id="ZZv-Xu-fAe"/>
                     <connections>
                         <outlet property="feedsTableView" destination="RZR-cT-slN" id="Ga0-Mp-4VE"/>
+                        <segue destination="84x-rK-GDM" kind="show" identifier="feedDetailSegue" id="v2q-VA-cwJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U1j-eT-azT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2671" y="31"/>
+        </scene>
+        <!--Feed Detail View Controller-->
+        <scene sceneID="fD8-Ky-b40">
+            <objects>
+                <viewController storyboardIdentifier="FeedDetail" id="84x-rK-GDM" customClass="FeedDetailViewController" customModule="UrbanFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xv1-9d-UJO"/>
+                        <viewControllerLayoutGuide type="bottom" id="8HZ-8x-cNv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xql-xG-tPe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="P1Z-Y8-0uW">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationFeedCell" id="rbQ-5c-G7N">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rbQ-5c-G7N" id="IRr-OH-qsm">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="84x-rK-GDM" id="2Is-K2-4cg"/>
+                                    <outlet property="delegate" destination="84x-rK-GDM" id="bSc-EF-3X4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="P1Z-Y8-0uW" secondAttribute="trailing" constant="-16" id="9Vz-Yv-vGG"/>
+                            <constraint firstItem="P1Z-Y8-0uW" firstAttribute="leading" secondItem="xql-xG-tPe" secondAttribute="leadingMargin" constant="-16" id="HHW-yI-scG"/>
+                            <constraint firstItem="8HZ-8x-cNv" firstAttribute="top" secondItem="P1Z-Y8-0uW" secondAttribute="bottom" id="bc6-Zb-o2D"/>
+                            <constraint firstItem="P1Z-Y8-0uW" firstAttribute="top" secondItem="Xv1-9d-UJO" secondAttribute="bottom" constant="-64" id="rSF-x3-nUQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9ij-es-4Pe">
+                        <barButtonItem key="rightBarButtonItem" title="Add Feed" id="2dZ-Sx-QEp">
+                            <connections>
+                                <action selector="addFeed:" destination="84x-rK-GDM" id="O0a-fv-L7X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addFeedButton" destination="2dZ-Sx-QEp" id="MEM-0Z-KLb"/>
+                        <outlet property="notificationsTableView" destination="P1Z-Y8-0uW" id="O0A-DY-2yB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUg-SQ-6Gy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3440" y="31"/>
         </scene>
         <!--User Channels-->
         <scene sceneID="f6x-lM-ymc">
@@ -180,7 +235,7 @@
                                     <action selector="getLocation:" destination="04W-9A-s07" eventType="touchUpInside" id="N3h-op-YEy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-Sv-XeQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-Sv-XeQ">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
