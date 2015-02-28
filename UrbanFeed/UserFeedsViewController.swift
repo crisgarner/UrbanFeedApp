@@ -134,6 +134,16 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
         return [deleteAction]
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+        var feedName: String = rowData["name"] as String
+        var feedId: String = String(rowData["short_id"] as String)
+        let feedDetails = self.storyboard?.instantiateViewControllerWithIdentifier("FeedDetail") as FeedDetailViewController
+        feedDetails.feedId = feedId;
+        feedDetails.feedName = feedName;
+        navigationController?.pushViewController(feedDetails, animated: true)
+    }
+    
     
     
     
