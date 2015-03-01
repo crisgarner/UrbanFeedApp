@@ -25,7 +25,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let city = defaults.stringForKey("currentCity"){
             //Do nothing
-            cityLabel.text = city
+            cityLabel.text = city + ", " + defaults.stringForKey("currentCountry")!
         }
         
         // Do any additional setup after loading the view.
@@ -79,7 +79,8 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
             println(placemark.administrativeArea)
             println(placemark.country)
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(placemark.locality + ", " + placemark.country, forKey: "currentCity")
+        defaults.setObject(placemark.locality, forKey: "currentCity")
+        defaults.setObject(placemark.country, forKey: "currentCountry")
 
         cityLabel.text = placemark.locality + ", " + placemark.country
         

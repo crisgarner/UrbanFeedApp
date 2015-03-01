@@ -35,7 +35,12 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
-        api!.getFeeds()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let city = defaults.stringForKey("currentCity"){
+            api!.getFeedsByCity(city, country: defaults.stringForKey("currentCountry")!)
+        }else{
+            api!.getFeeds()
+        }
         self.feedsTableView!.reloadData()
     }
 
@@ -141,6 +146,9 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 dispatch_async(dispatch_get_main_queue(), {
                     self.feedsData = NSMutableArray(array:resultsArr)
                     self.feedsTableView!.reloadData()
+                    if(self.feedsData.count == 0){
+                        self.api!.getFeeds()
+                    }
                 })
             }
         }

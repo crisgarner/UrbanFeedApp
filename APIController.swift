@@ -44,6 +44,32 @@ class APIController
         })
     }
     
+    func getFeedsByCity(city:String,country:String){
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFHTTPRequestSerializer()
+        var parameters = ["city":city, "country":country]
+        manager.GET( serverURL+"channels/get_by_city",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                let responseDictionary = responseObject as [String: AnyObject]
+                if let feedArray = responseDictionary["items"] as? NSArray{
+                    self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getFeeds")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: "",methodCaller: "getFeeds")
+                }
+                
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                let responseObject: AnyObject! =  operation.responseObject
+                if responseObject != nil {
+                    let response =  responseObject as [String: AnyObject]
+                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "getFeeds")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getFeeds")
+                }
+        })
+    }
+    
     func getUserFeeds(objectId :String){
         let manager = AFHTTPRequestOperationManager()
         manager.requestSerializer = AFHTTPRequestSerializer()

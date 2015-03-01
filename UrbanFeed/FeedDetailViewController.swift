@@ -54,11 +54,10 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
     @IBAction func addFeed(sender: AnyObject) {
         
         var channel = self.feedId
-        channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
         var installation:PFInstallation = PFInstallation.currentInstallation()
         let defaults = NSUserDefaults.standardUserDefaults()
         if let identifier = defaults.stringForKey("UserIdentifier"){
-            api!.addFeed(identifier, channel)
+            api!.addFeed(identifier, shortId: channel!)
         }
         if (installation.channels == nil)
         {
