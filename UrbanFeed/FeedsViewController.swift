@@ -29,6 +29,8 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         feedsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
         api = APIController(delegate: self)
+        self.feedsTableView?.estimatedRowHeight = 107.0
+        self.feedsTableView?.rowHeight = UITableViewAutomaticDimension
 
 
         // Do any additional setup after loading the view.

@@ -160,6 +160,7 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.userFeeds = resultsArr as Array<String>
+                    println( self.userFeeds)
                     self.feedsTableView!.reloadData()
                 })
             }else{

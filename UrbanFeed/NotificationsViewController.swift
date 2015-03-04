@@ -33,13 +33,15 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         var nib = UINib(nibName: "NotificationTableViewCell", bundle: nil)
         notificationsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
         api = APIController(delegate: self)
+        self.notificationsTableView!.reloadData()
+        self.notificationsTableView?.estimatedRowHeight = 107.0
+        self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
        // var installation:PFInstallation = PFInstallation.currentInstallation()
-       
         let defaults = NSUserDefaults.standardUserDefaults()
         if let userCreated = defaults.stringForKey("UserCreated"){
             if let identifier = defaults.stringForKey("UserIdentifier"){
@@ -116,7 +118,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
                 alert.title = "Notification"
                 alert.message = message
                 alert.addButtonWithTitle("Ok")
-                //  alert.show()
+                alert.show()
             }else{
                 if methodCaller == "getUserFeed" {
                     dispatch_async(dispatch_get_main_queue(), {

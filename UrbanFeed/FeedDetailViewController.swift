@@ -38,6 +38,8 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
         var nib = UINib(nibName: "NotificationTableViewCell", bundle: nil)
         notificationsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
         api = APIController(delegate: self)
+        self.notificationsTableView?.estimatedRowHeight = 107.0
+        self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
 
         // Do any additional setup after loading the view.
     }
@@ -125,7 +127,7 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
                 alert.title = "Notification"
                 alert.message = message
                 alert.addButtonWithTitle("Ok")
-                //  alert.show()
+                alert.show()
             }else{
                 dispatch_async(dispatch_get_main_queue(), {
                     self.notificationsData = NSMutableArray(array:resultsArr)
