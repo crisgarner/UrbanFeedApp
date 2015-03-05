@@ -15,6 +15,7 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
     var userFeeds = Array<String>()
     var api : APIController?
     var imageCache = [String : UIImage]()
+    var channels = ""
     
     @IBOutlet var feedsTableView: UITableView!
     
@@ -116,16 +117,20 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
             tableView.editing = false
             var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
             var installation:PFInstallation = PFInstallation.currentInstallation()
-            self.api!.deleteFeed(installation.objectId, shortId: rowData["short_id"] as String)
             if (installation.channels == nil)
             {
                 installation.channels = NSArray()
             }
-            var channel = (rowData["name"] as String)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let identifier = defaults.stringForKey("UserIdentifier"){
+                 self.api!.deleteFeed(identifier, shortId: rowData["short_id"] as String)
+            }
+            var channel = (rowData["short_id"] as String)
             channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
             installation.removeObject(channel, forKey: "channels")
             installation.saveInBackground()
-            
+            self.feedsData.removeObjectAtIndex(indexPath.row)
+             self.feedsTableView!.reloadData()
             //      self.feedsData.removeObjectAtIndex(indexPath.row)
             //    self.feedsTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
@@ -160,8 +165,18 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.userFeeds = resultsArr as Array<String>
-                    println( self.userFeeds)
-                    self.feedsTableView!.reloadData()
+                    var first = true
+                    for feed in self.userFeeds{
+                        if first{
+                            first = false
+                            self.channels += feed
+                        }else{
+                            self.channels += "," + feed
+                        }
+                        
+                        
+                    }
+                    self.api!.getFeedsByChannel(self.channels)
                 })
             }else{
                 dispatch_async(dispatch_get_main_queue(), {

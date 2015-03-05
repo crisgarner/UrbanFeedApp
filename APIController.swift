@@ -44,6 +44,32 @@ class APIController
         })
     }
     
+    func getFeedsByChannel(channels :String){
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFHTTPRequestSerializer()
+        var parameters = ["channels":channels]
+        manager.GET( serverURL+"channels/get_by_ids",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                let responseDictionary = responseObject as [String: AnyObject]
+                println(responseDictionary)
+                if let feedArray: NSArray = responseDictionary["items"] as? NSArray{
+                    self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getNotifications")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: "",methodCaller: "getNotifications")
+                }
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                let responseObject: AnyObject! =  operation.responseObject
+                if responseObject != nil {
+                    let response =  responseObject as [String: AnyObject]
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
+                }
+        })
+    }
+    
     func getFeedsByCity(city:String,country:String){
         let manager = AFHTTPRequestOperationManager()
         manager.requestSerializer = AFHTTPRequestSerializer()
@@ -155,7 +181,7 @@ class APIController
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
                     let response =  responseObject as [String: AnyObject]
-                    self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "deleteFeed")
+                    self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "deleteFeed")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "deleteFeed")
                 }

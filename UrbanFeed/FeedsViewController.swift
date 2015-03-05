@@ -106,7 +106,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+  /*  func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
         /*var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
         api?.deleteFeed(rowData["id"]!.stringValue)
@@ -114,7 +114,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.feedsTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
         Flurry.logEvent("Business_Feed_Deleted")
         }*/
-    }
+    }*/
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
