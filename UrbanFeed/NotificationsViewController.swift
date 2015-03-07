@@ -123,6 +123,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
                 if methodCaller == "getUserFeed" {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.userFeeds = resultsArr as Array<String>
+                        self.channels = ""
                         var first = true
                         for feed in self.userFeeds{
                             if first{

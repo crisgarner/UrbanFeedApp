@@ -164,6 +164,7 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
         }else{
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.channels = ""
                     self.userFeeds = resultsArr as Array<String>
                     var first = true
                     for feed in self.userFeeds{
