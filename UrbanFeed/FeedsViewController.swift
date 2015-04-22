@@ -24,7 +24,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
         super.viewDidLoad()
         var nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         feedsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
@@ -56,13 +56,13 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as FeedTableViewCell
+        let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as! FeedTableViewCell
         cell.delegate = self
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        cell.loadItem(feedName: rowData["name"] as String, image: UIImage(named: "Blank52")!)
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
+        cell.loadItem(feedName: rowData["name"] as! String, image: UIImage(named: "Blank52")!)
 
         
-        let urlString = (rowData["logo_url"] as String)
+        let urlString = (rowData["logo_url"] as! String)
         var image = self.imageCache[urlString]
         
         
@@ -102,7 +102,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
@@ -117,10 +117,10 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }*/
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        var feedName: String = rowData["name"] as String
-        var feedId: String = String(rowData["short_id"] as String)
-        let feedDetails = self.storyboard?.instantiateViewControllerWithIdentifier("FeedDetail") as FeedDetailViewController
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
+        var feedName: String = rowData["name"] as! String
+        var feedId: String = String(rowData["short_id"] as! String)
+        let feedDetails = self.storyboard?.instantiateViewControllerWithIdentifier("FeedDetail") as! FeedDetailViewController
         feedDetails.feedId = feedId;
         feedDetails.feedName = feedName;
         navigationController?.pushViewController(feedDetails, animated: true)
@@ -141,7 +141,7 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }else{
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.userFeeds = resultsArr as Array<String>
+                    self.userFeeds = resultsArr as! Array<String>
                     self.feedsTableView!.reloadData()
                 })
             }else{
@@ -157,15 +157,15 @@ class FeedsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }    
     
     func addFeed(indexPath:AnyObject){
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
         
-        var channel = (rowData["name"] as String)
+        var channel = (rowData["name"] as! String)
         channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
         var installation:PFInstallation = PFInstallation.currentInstallation()
-        api!.addFeed(installation.objectId, shortId: rowData["short_id"] as String)
+        api!.addFeed(installation.objectId, shortId: rowData["short_id"] as! String)
         if (installation.channels == nil)
         {
-            installation.channels = NSArray()
+            installation.channels = NSArray() as [AnyObject]
         }
         installation.addUniqueObject(channel, forKey: "channels")
         installation.saveEventually()

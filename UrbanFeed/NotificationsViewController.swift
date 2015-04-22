@@ -26,8 +26,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
         self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
         var nib = UINib(nibName: "NotificationTableViewCell", bundle: nil)
@@ -67,17 +67,20 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: NotificationTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as NotificationTableViewCell
-        var rowData: NSDictionary = self.notificationsData[indexPath.row] as NSDictionary
-        cell.loadItem(owner: rowData["channel_name"] as String, title: rowData["title"] as String,message: rowData["content"] as String)
+        let cell: NotificationTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as! NotificationTableViewCell
+        var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+        var dateArray = (rowData["date"] as! String).componentsSeparatedByString("T")
+        var dateTime =  dateArray[1].componentsSeparatedByString(":")
+        var date =  dateTime[0] + ":" +  dateTime[1] + " " + dateArray[0]
+        cell.loadItem(owner: rowData["channel_name"] as! String, title: rowData["title"] as! String,message: rowData["content"] as! String, date:date)
         return cell
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         /*var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
         api?.deleteFeed(rowData["id"]!.stringValue)
@@ -87,11 +90,11 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         }*/
     }
     
-    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
         var shareAction = UITableViewRowAction(style: .Default, title: "Share") { (action, indexPath) -> Void in
-            var rowData: NSDictionary = self.notificationsData[indexPath.row] as NSDictionary
-            var caption = (rowData["channel_name"] as String) + ": " + (rowData["content"] as String)
+            var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+            var caption = (rowData["channel_name"] as! String) + ": " + (rowData["content"] as! String)
             let objectsToShare = [caption]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityVC.excludedActivityTypes = ([UIActivityTypePrint, UIActivityTypeAssignToContact,UIActivityTypeAirDrop,UIActivityTypePostToVimeo])
@@ -99,8 +102,13 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             self.presentViewController(activityVC, animated: true, completion: nil)
         }
         shareAction.backgroundColor = UIColor.grayColor()
-        // return [deleteAction, shareAction] No feed share for this version
-        return [shareAction]
+        var flagAction = UITableViewRowAction(style: .Default, title: "Report") { (action, indexPath) -> Void in
+            var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+            self.api?.flagMessage(rowData["id"] as! String, channel_id: rowData["channel_id"] as! String)
+        }
+        flagAction.backgroundColor = UIColor.redColor()
+        return [shareAction, flagAction]
+
     }
     
     
@@ -111,37 +119,48 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             if message == "success"{
                 let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject("true", forKey: "UserCreated")
+            }else{
+                println("Couldn't add USer")
             }
         }else{
-            if message != "" {
+            if methodCaller == "flagMessage" {
                 var alert: UIAlertView = UIAlertView()
                 alert.title = "Notification"
-                alert.message = message
+                alert.message = "Message has been flagged administrators will take care of it"
                 alert.addButtonWithTitle("Ok")
                 alert.show()
+                
             }else{
-                if methodCaller == "getUserFeed" {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.userFeeds = resultsArr as Array<String>
-                        self.channels = ""
-                        var first = true
-                        for feed in self.userFeeds{
-                            if first{
-                                first = false
-                                self.channels += feed
-                            }else{
-                                self.channels += "," + feed
-                            }
-                            
-                            
-                        }
-                        self.api!.getNotifications(self.channels)
-                    })
+                if message != "" {
+                    var alert: UIAlertView = UIAlertView()
+                    alert.title = "Notification"
+                    alert.message = message
+                    alert.addButtonWithTitle("Ok")
+                    alert.show()
                 }else{
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.notificationsData = NSMutableArray(array:resultsArr)
-                        self.notificationsTableView!.reloadData()
-                    })
+                    if methodCaller == "getUserFeed" {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.userFeeds = resultsArr as! Array<String>
+                            self.channels = ""
+                            var first = true
+                            for feed in self.userFeeds{
+                                if first{
+                                    first = false
+                                    self.channels += feed
+                                }else{
+                                    self.channels += "," + feed
+                                }
+                                
+                                
+                            }
+                            self.api!.getNotifications(self.channels)
+                        })
+                    }else{
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.notificationsData = NSMutableArray(array:resultsArr)
+                            self.notificationsTableView!.reloadData()
+                        })
+                    }
                 }
             }
         }
@@ -156,5 +175,16 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func dateformatterDateString(dateString: NSString) -> NSDate?
+    {
+        var dateFormatter: NSDateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        
+        
+        return dateFormatter.dateFromString(dateString as String)
+    }
+
 
 }

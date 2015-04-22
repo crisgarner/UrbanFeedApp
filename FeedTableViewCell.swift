@@ -36,7 +36,7 @@ class FeedTableViewCell: UITableViewCell {
         self.feedName.text = feedName
         self.logo.image = image
         self.logo.reloadInputViews()
-        if(indexPath as NSObject == NSNull()){
+        if(indexPath as! NSObject == NSNull()){
             addFeedButton.enabled = false
             addFeedButton.alpha = 0
         }else{

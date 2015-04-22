@@ -29,14 +29,14 @@ class APIController
         manager.GET( serverURL+"channels/list",
             parameters: nil,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                let responseDictionary = responseObject as [String: AnyObject]
-                let feedArray = responseDictionary["items"] as NSArray
+                let responseDictionary = responseObject as! [String: AnyObject]
+                let feedArray = responseDictionary["items"] as! NSArray
                 self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getFeeds")
             },
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "getFeeds")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getFeeds")
@@ -51,7 +51,7 @@ class APIController
         manager.GET( serverURL+"channels/get_by_ids",
             parameters: parameters,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                let responseDictionary = responseObject as [String: AnyObject]
+                let responseDictionary = responseObject as! [String: AnyObject]
                 println(responseDictionary)
                 if let feedArray: NSArray = responseDictionary["items"] as? NSArray{
                     self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getNotifications")
@@ -62,7 +62,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
@@ -77,7 +77,7 @@ class APIController
         manager.GET( serverURL+"channels/get_by_city",
             parameters: parameters,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                let responseDictionary = responseObject as [String: AnyObject]
+                let responseDictionary = responseObject as! [String: AnyObject]
                 if let feedArray = responseDictionary["items"] as? NSArray{
                     self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getFeeds")
                 }else{
@@ -88,7 +88,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message: response["message"]!.description,methodCaller: "getFeeds")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getFeeds")
@@ -103,7 +103,7 @@ class APIController
         manager.GET( serverURL+"subscribers/get_by_object_id",
             parameters: parameters,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                let responseDictionary = responseObject as [String: AnyObject]
+                let responseDictionary = responseObject as! [String: AnyObject]
                 println(responseDictionary)
                 if let feedArray: NSArray = responseDictionary["channels"] as? NSArray{
                       self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getUserFeed")
@@ -114,7 +114,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getUserFeed")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getUserFeed")
@@ -129,7 +129,7 @@ class APIController
         manager.GET( serverURL+"messages/get_by_channels",
             parameters: parameters,
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                let responseDictionary = responseObject as [String: AnyObject]
+                let responseDictionary = responseObject as! [String: AnyObject]
                 println(responseDictionary)
                 if let feedArray: NSArray = responseDictionary["items"] as? NSArray{
                     self.delegate.didReceiveAPIResults(feedArray,message: "",methodCaller: "getNotifications")
@@ -140,7 +140,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "getNotifications")
@@ -160,7 +160,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "addFeed")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "addFeed")
@@ -180,7 +180,7 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "deleteFeed")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "deleteFeed")
@@ -201,10 +201,30 @@ class APIController
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 let responseObject: AnyObject! =  operation.responseObject
                 if responseObject != nil {
-                    let response =  responseObject as [String: AnyObject]
+                    let response =  responseObject as! [String: AnyObject]
                     self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "addUser")
                 }else{
                     self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "addUser")
+                }
+        })
+    }
+    
+    func flagMessage(id :String, channel_id: String){
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer() as AFJSONRequestSerializer
+        var parameters = ["id":id, "channel_id":channel_id]
+        manager.POST(serverURL+"messages/flage",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                self.delegate.didReceiveAPIResults([],message: "success",methodCaller: "flagMessage")
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                let responseObject: AnyObject! =  operation.responseObject
+                if responseObject != nil {
+                    let response =  responseObject as! [String: AnyObject]
+                    self.delegate.didReceiveAPIResults([],message:  error.localizedDescription,methodCaller: "flagMessage")
+                }else{
+                    self.delegate.didReceiveAPIResults([],message: error.localizedDescription,methodCaller: "flagMessage")
                 }
         })
     }

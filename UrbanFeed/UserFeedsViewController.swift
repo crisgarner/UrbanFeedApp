@@ -24,12 +24,14 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
         super.viewDidLoad()
         var nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         feedsTableView?.registerNib(nib, forCellReuseIdentifier: kCellIdentifier)
         api = APIController(delegate: self)
-        
+        self.feedsTableView?.estimatedRowHeight = 107.0
+        self.feedsTableView?.rowHeight = UITableViewAutomaticDimension
+
         
         // Do any additional setup after loading the view.
     }
@@ -54,10 +56,10 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as FeedTableViewCell
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        cell.loadItem(feedName: rowData["name"] as String, image: UIImage(named: "Blank52")!)
-        let urlString = (rowData["logo_url"] as String)
+        let cell: FeedTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as! FeedTableViewCell
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
+        cell.loadItem(feedName: rowData["name"] as! String, image: UIImage(named: "Blank52")!)
+        let urlString = (rowData["logo_url"] as! String)
         var image = self.imageCache[urlString]
         
         
@@ -97,11 +99,11 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView,commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
         /*var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
         api?.deleteFeed(rowData["id"]!.stringValue)
@@ -111,21 +113,21 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
         }*/
     }
     
-    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+    func tableView(tableView: UITableView,editActionsForRowAtIndexPath indexPath: NSIndexPath)-> [AnyObject]? {
         
         var deleteAction = UITableViewRowAction(style: .Default, title: "Unfollow") { (action, indexPath) -> Void in
             tableView.editing = false
-            var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
+            var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
             var installation:PFInstallation = PFInstallation.currentInstallation()
             if (installation.channels == nil)
             {
-                installation.channels = NSArray()
+                installation.channels = NSArray() as! [AnyObject]
             }
             let defaults = NSUserDefaults.standardUserDefaults()
             if let identifier = defaults.stringForKey("UserIdentifier"){
-                 self.api!.deleteFeed(identifier, shortId: rowData["short_id"] as String)
+                 self.api!.deleteFeed(identifier, shortId: rowData["short_id"] as! String)
             }
-            var channel = (rowData["short_id"] as String)
+            var channel = (rowData["short_id"] as! String)
             channel = channel.stringByReplacingOccurrencesOfString(" ", withString: "")
             installation.removeObject(channel, forKey: "channels")
             installation.saveInBackground()
@@ -140,10 +142,10 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
-        var feedName: String = rowData["name"] as String
-        var feedId: String = String(rowData["short_id"] as String)
-        let feedDetails = self.storyboard?.instantiateViewControllerWithIdentifier("FeedDetail") as FeedDetailViewController
+        var rowData: NSDictionary = self.feedsData[indexPath.row] as! NSDictionary
+        var feedName: String = rowData["name"] as! String
+        var feedId: String = String(rowData["short_id"] as! String)
+        let feedDetails = self.storyboard?.instantiateViewControllerWithIdentifier("FeedDetail") as! FeedDetailViewController
         feedDetails.feedId = feedId;
         feedDetails.feedName = feedName;
         navigationController?.pushViewController(feedDetails, animated: true)
@@ -165,7 +167,7 @@ class UserFeedsViewController: UIViewController, UITableViewDataSource, UITableV
             if methodCaller == "getUserFeed" {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.channels = ""
-                    self.userFeeds = resultsArr as Array<String>
+                    self.userFeeds = resultsArr as! Array<String>
                     var first = true
                     for feed in self.userFeeds{
                         if first{

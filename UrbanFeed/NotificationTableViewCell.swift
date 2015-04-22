@@ -16,6 +16,8 @@ class NotificationTableViewCell: UITableViewCell {
     
     @IBOutlet var message: UILabel!
     
+    @IBOutlet var date: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,10 +30,11 @@ class NotificationTableViewCell: UITableViewCell {
     }
     
     
-    func loadItem(#owner: String,title: String,message: String) {
+    func loadItem(#owner: String,title: String,message: String, date: String) {
         self.owner.text = owner
         self.title.text = title
         self.message.text = message
+        self.date.text = date
         self.message.numberOfLines = 0;
         self.message.lineBreakMode = NSLineBreakMode.ByWordWrapping
         self.title.numberOfLines = 0;

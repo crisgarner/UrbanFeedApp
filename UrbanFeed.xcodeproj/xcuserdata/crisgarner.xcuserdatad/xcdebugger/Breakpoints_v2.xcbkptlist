@@ -360,6 +360,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.getUserFeeds (UrbanFeed.APIController)(Swift.String) -&gt; ()"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "446320606.708291"
                   startingColumnNumber = "9223372036854775807"
@@ -374,6 +375,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.(getUserFeeds (UrbanFeed.APIController) -&gt; (Swift.String) -&gt; ()).(closure #1)"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "446320606.70851"
                   startingColumnNumber = "9223372036854775807"
@@ -422,6 +424,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.getUserFeeds (UrbanFeed.APIController)(Swift.String) -&gt; ()"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "446288320.827676"
                   startingColumnNumber = "9223372036854775807"
@@ -436,6 +439,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.(getUserFeeds (UrbanFeed.APIController) -&gt; (Swift.String) -&gt; ()).(closure #2)"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "446288320.827911"
                   startingColumnNumber = "9223372036854775807"
@@ -470,12 +474,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/NotificationsViewController.swift"
-            timestampString = "447180455.741938"
+            timestampString = "451340125.605507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "tableView(_:editActionsForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -678,13 +682,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/NotificationsViewController.swift"
-            timestampString = "447180455.741938"
+            timestampString = "451355673.825678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
-            landmarkType = "5">
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "NotificationsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -806,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/FeedDetailViewController.swift"
-            timestampString = "447180678.12163"
+            timestampString = "451355673.825678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -822,13 +826,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/FeedDetailViewController.swift"
-            timestampString = "447180678.12163"
+            timestampString = "451355673.825678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "FeedDetailViewController"
-            landmarkType = "3">
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "tableView(_:commitEditingStyle:forRowAtIndexPath:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -838,11 +842,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/FeedDetailViewController.swift"
-            timestampString = "447180678.12163"
+            timestampString = "451355673.825678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "addFeed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -870,27 +874,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/UserFeedsViewController.swift"
-            timestampString = "447271201.108906"
+            timestampString = "451354596.426753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UrbanFeed/UserFeedsViewController.swift"
-            timestampString = "447433866.472163"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -902,11 +890,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/UserFeedsViewController.swift"
-            timestampString = "447270513.232065"
+            timestampString = "451354596.426753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UrbanFeed/UserFeedsViewController.swift"
+            timestampString = "451354596.426753"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -932,6 +936,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.addFeed (UrbanFeed.APIController)(Swift.String, shortId : Swift.String) -&gt; ()"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "447181575.828647"
                   startingColumnNumber = "9223372036854775807"
@@ -946,6 +951,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "UrbanFeed.APIController.(addFeed (UrbanFeed.APIController) -&gt; (Swift.String, shortId : Swift.String) -&gt; ()).(closure #1)"
                   moduleName = "UrbanFeed"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/crisgarner/Projects/UrbanFeed/APIController.swift"
                   timestampString = "447181575.828962"
                   startingColumnNumber = "9223372036854775807"
@@ -964,12 +970,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/FeedDetailViewController.swift"
-            timestampString = "447181615.917638"
+            timestampString = "451355673.825678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "didReceiveAPIResults(_:message:methodCaller:)"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "tableView(_:editActionsForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1024,16 +1030,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanFeed/UserFeedsViewController.swift"
-            timestampString = "447433725.584025"
+            timestampString = "451354596.426753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "viewWillAppear(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UrbanFeed/NotificationsViewController.swift"
+            timestampString = "451355673.825678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "dateformatterDateString(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UrbanFeed/NotificationsViewController.swift"
+            timestampString = "451355673.825678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "dateformatterDateString(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

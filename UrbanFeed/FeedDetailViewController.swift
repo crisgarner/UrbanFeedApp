@@ -30,8 +30,8 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
-        self.tabBarController?.tabBar.selectedImageTintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
+        self.tabBarController?.tabBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.tintColor =  UIColor.whiteColor()
         self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
@@ -40,7 +40,6 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
         api = APIController(delegate: self)
         self.notificationsTableView?.estimatedRowHeight = 107.0
         self.notificationsTableView?.rowHeight = UITableViewAutomaticDimension
-
         // Do any additional setup after loading the view.
     }
 
@@ -63,7 +62,7 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
         }
         if (installation.channels == nil)
         {
-            installation.channels = NSArray()
+            installation.channels = NSArray() as [AnyObject]
         }
         installation.addUniqueObject(channel, forKey: "channels")
         installation.saveEventually()
@@ -77,17 +76,26 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: NotificationTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as NotificationTableViewCell
-        var rowData: NSDictionary = self.notificationsData[indexPath.row] as NSDictionary
-        cell.loadItem(owner: rowData["channel_name"] as String, title: rowData["title"] as String,message: rowData["content"] as String)
+        let cell: NotificationTableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as! NotificationTableViewCell
+        let dateFormatter = NSDateFormatter()
+        
+        var theDateFormat = NSDateFormatterStyle.ShortStyle
+        
+        dateFormatter.dateStyle = theDateFormat
+        var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+        var dateArray = (rowData["date"] as! String).componentsSeparatedByString("T")
+        var dateTime =  dateArray[1].componentsSeparatedByString(":")
+        var date =  dateTime[0] + ":" +  dateTime[1] + " " + dateArray[0]
+        
+        cell.loadItem(owner: rowData["channel_name"] as! String, title: rowData["title"] as! String,message: rowData["content"] as! String, date:date)
         return cell
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         /*var rowData: NSDictionary = self.feedsData[indexPath.row] as NSDictionary
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
         api?.deleteFeed(rowData["id"]!.stringValue)
@@ -97,11 +105,11 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
         }*/
     }
     
-    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
         var shareAction = UITableViewRowAction(style: .Default, title: "Share") { (action, indexPath) -> Void in
-            var rowData: NSDictionary = self.notificationsData[indexPath.row] as NSDictionary
-            var caption = (rowData["channel_name"] as String) + ": " + (rowData["content"] as String)
+            var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+            var caption = (rowData["channel_name"] as! String) + ": " + (rowData["content"] as! String)
             let objectsToShare = [caption]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityVC.excludedActivityTypes = ([UIActivityTypePrint, UIActivityTypeAssignToContact,UIActivityTypeAirDrop,UIActivityTypePostToVimeo])
@@ -109,8 +117,13 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
             self.presentViewController(activityVC, animated: true, completion: nil)
         }
         shareAction.backgroundColor = UIColor.grayColor()
+        var flagAction = UITableViewRowAction(style: .Default, title: "Report") { (action, indexPath) -> Void in
+            var rowData: NSDictionary = self.notificationsData[indexPath.row] as! NSDictionary
+            self.api?.flagMessage(rowData["id"] as! String, channel_id: rowData["channel_id"] as! String)
+        }
+        flagAction.backgroundColor = UIColor.redColor()
         // return [deleteAction, shareAction] No feed share for this version
-        return [shareAction]
+        return [shareAction, flagAction]
     }
     
     
@@ -122,21 +135,30 @@ class FeedDetailViewController: UIViewController, UITableViewDataSource, UITable
                 addFeedButton.enabled = true
             }
         }else{
-            if message != "" {
+            if methodCaller == "flagMessage" {
                 var alert: UIAlertView = UIAlertView()
                 alert.title = "Notification"
-                alert.message = message
+                alert.message = "Message has been flagged administrators will take care of it"
                 alert.addButtonWithTitle("Ok")
                 alert.show()
+
             }else{
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.notificationsData = NSMutableArray(array:resultsArr)
-                    self.notificationsTableView!.reloadData()
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    if let identifier = defaults.stringForKey("UserIdentifier"){
-                        self.api!.getUserFeeds(identifier)
-                    }
-                })
+                if message != "" {
+                    var alert: UIAlertView = UIAlertView()
+                    alert.title = "Notification"
+                    alert.message = message
+                    alert.addButtonWithTitle("Ok")
+                    alert.show()
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.notificationsData = NSMutableArray(array:resultsArr)
+                        self.notificationsTableView!.reloadData()
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        if let identifier = defaults.stringForKey("UserIdentifier"){
+                            self.api!.getUserFeeds(identifier)
+                        }
+                    })
+                }
             }
         }
         

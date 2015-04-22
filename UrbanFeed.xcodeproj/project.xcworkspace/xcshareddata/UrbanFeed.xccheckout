@@ -6,19 +6,15 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>17D454D7-38CF-4800-A639-55D8D5ED321C</string>
-	<key>IDESourceControlProjectName</key>
-	<string>UrbanFeed</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B08513D3A8919626F41BCE3918ADDB502A255FC7</key>
 		<string>github.com:crisgarner/UrbanFeedApp.git</string>
 	</dict>
-	<key>IDESourceControlProjectPath</key>
-	<string>UrbanFeed.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B08513D3A8919626F41BCE3918ADDB502A255FC7</key>
-		<string>../..</string>
+		<string>UrbanFeed/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:crisgarner/UrbanFeedApp.git</string>
